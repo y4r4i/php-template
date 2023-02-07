@@ -1,0 +1,21 @@
+version: '3'
+services:
+  web:
+    build: .
+    tty: true
+    volumes:
+      - '.:/app'
+    ports:
+      - '80:80'
+    working_dir: /app
+  db:
+    image: mysql:5.7.35
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - TZ=Asia/Tokyo
+    ports:
+      - '3306:3306'
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - '8025:8025'
