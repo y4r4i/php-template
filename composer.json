@@ -6,5 +6,8 @@
     "monolog/monolog": "^2.9",
     "ramsey/uuid": "^4.7",
     "ext-mbstring": "*"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^1.9"
   }
 }

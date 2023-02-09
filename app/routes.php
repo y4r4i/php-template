@@ -20,4 +20,3 @@ return function (App $app) {
         return $response;
     });
 };
-
