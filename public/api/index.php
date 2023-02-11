@@ -6,10 +6,12 @@ use DI\Bridge\Slim\Bridge;
 
 require __DIR__ . '/../../vendor/autoload.php';
 $container = require __DIR__ . '/../../app/container.php';
-$app = Bridge::create($container());
-$app->setBasePath($app->getContainer()->get('basePath'));
+$basePath = require __DIR__ . '/../../app/util/basePath.php';
 $middleware = require __DIR__ . '/../../app/middleware.php';
-$middleware($app);
 $routes = require __DIR__ . '/../../app/routes.php';
+putenv('BASE-PATH=' . $basePath());
+$app = Bridge::create($container());
+$app->setBasePath(getenv('BASE-PATH'));
+$middleware($app);
 $routes($app);
 $app->run();
