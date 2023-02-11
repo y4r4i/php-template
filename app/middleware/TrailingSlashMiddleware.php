@@ -8,8 +8,7 @@ use Slim\Psr7\Response;
 
 return function (Request $request, RequestHandler $handler) {
     $uri = $request->getUri();
-    $path = $uri->getPath();
-    $path = str_replace(getenv('BASE-PATH'), "", $path);
+    $path = str_replace(getenv('BASE-PATH'), "", $uri->getPath());
     if ($path != '/' && str_ends_with($path, '/')) {
         $path = rtrim($path, '/');
         $uri = $uri->withPath($path);
