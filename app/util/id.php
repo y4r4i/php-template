@@ -1,18 +1,19 @@
 <?php
 
+declare(strict_types=1);
 
 use Ramsey\Uuid\Uuid;
 
 return function () {
     $uuid = Uuid::uuid4();
-    $processed_uuid = str_replace('-', '', $uuid);
+    $processed_uuid = str_replace('-', '', $uuid->toString());
     $bin = hex2bin($processed_uuid);
     $base32 = toBase32($bin);
     $id = str_replace('=', '', $base32);
     return mb_strtolower($id);
 };
 
-function toBase32($input, $padding = true)
+function toBase32($input, $padding = true): string
 {
     $map = array(
         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', //  7
@@ -26,7 +27,7 @@ function toBase32($input, $padding = true)
     $input = str_split($input);
     $binaryString = "";
     for ($i = 0; $i < count($input); $i++) {
-        $binaryString .= str_pad(base_convert(ord($input[$i]), 10, 2), 8, '0', STR_PAD_LEFT);
+        $binaryString .= str_pad(base_convert((string)ord($input[$i]), 10, 2), 8, '0', STR_PAD_LEFT);
     }
     $fiveBitBinaryArray = str_split($binaryString, 5);
     $base32 = "";

@@ -1,7 +1,8 @@
 <?php
 
-use DI\Bridge\Slim\Bridge;
+declare(strict_types=1);
 
+use DI\Bridge\Slim\Bridge;
 
 require __DIR__ . '/../../vendor/autoload.php';
 $container = require __DIR__ . '/../../app/container.php';
