@@ -13,9 +13,7 @@ return function (App $app) {
         $app->add(require $path);
     }
     $app->addBodyParsingMiddleware();
-    $streamFactory = new StreamFactory();
-    $mode = OutputBufferingMiddleware::PREPEND;
-    $outputBufferingMiddleware = new OutputBufferingMiddleware($streamFactory, $mode);
+    $outputBufferingMiddleware = new OutputBufferingMiddleware(new StreamFactory(), OutputBufferingMiddleware::PREPEND);
     $app->add($outputBufferingMiddleware);
     $methodOverrideMiddleware = new MethodOverrideMiddleware();
     $app->add($methodOverrideMiddleware);
