@@ -8,7 +8,6 @@ use Slim\App;
 
 return function (App $app) {
     $app->get('/', function (Request $request, Response $response) use ($app) {
-        echo $app->getContainer()->get('basePath');
         return $response;
     });
     $app->options('/{routes:.+}', function (Request $request, Response $response) {
