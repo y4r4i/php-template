@@ -1,0 +1,9 @@
+{
+  "database": {
+    "type": "mysql",
+    "host": "db",
+    "database": "app",
+    "username": "root",
+    "password": "root"
+  }
+}
