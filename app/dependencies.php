@@ -10,8 +10,8 @@ use Monolog\Logger;
 use Psr\Container\ContainerInterface;
 use Slim\App;
 
-require __DIR__ . "/../components/Config.php";
-require __DIR__ . "/../components/BasePath.php";
+require __DIR__ . "/../app/components/Config.php";
+require __DIR__ . "/../app/components/BasePath.php";
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([

@@ -11,12 +11,12 @@ session_start();
 
 require __DIR__ . '/../../vendor/autoload.php';
 $dependencies = require __DIR__ . '/../../app/dependencies.php';
-$middleware = require __DIR__ . '/../../app/middleware.php';
+$middleware = require __DIR__ . '/../../app/middlewares.php';
 $routes = require __DIR__ . '/../../app/routes.php';
 $builder = new ContainerBuilder();
 $dependencies($builder);
 
-require_once __DIR__ . "/../../components/BasePath.php";
+require_once __DIR__ . "/../../app/components/BasePath.php";
 
 try {
     $container = $builder->build();

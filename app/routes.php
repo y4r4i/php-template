@@ -8,7 +8,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
 use Slim\Exception\HttpNotFoundException;
 
-require __DIR__ . "/../components/UniqueId.php";
+require __DIR__ . "/../app/components/UniqueId.php";
 
 return function (App $app) {
     $app->get('/', function (Request $request, Response $response, Medoo $db) use ($app) {

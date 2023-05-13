@@ -10,7 +10,7 @@ use Slim\Middleware\OutputBufferingMiddleware;
 use Slim\Psr7\Factory\StreamFactory;
 
 return function (App $app) {
-    $paths = glob(__DIR__ . '/middleware/*.php');
+    $paths = glob(__DIR__ . '/middlewares/*.php');
     if (is_array($paths)) {
         foreach ($paths as $path) {
             require_once $path;

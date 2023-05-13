@@ -12,7 +12,8 @@ class TrailingSlashMiddleware
 {
     private string $basePath;
 
-    public function __construct(BasePath $basePath) {
+    public function __construct(BasePath $basePath)
+    {
         $this->basePath = $basePath();
     }
 
