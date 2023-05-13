@@ -8,14 +8,14 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
 use Slim\Exception\HttpNotFoundException;
 
+require __DIR__ . "/../components/UniqueId.php";
+
 return function (App $app) {
     $app->get('/', function (Request $request, Response $response, Medoo $db) use ($app) {
-        error_log(json_encode($db->error));
         return $response;
     });
-    $app->get('/xsrf-cookie', function (Request $request, Response $response) use ($app) {
-        $id = require __DIR__ . '/util/id.php';
-        setcookie('XSRF-TOKEN', $id(), [
+    $app->get('/xsrf-cookie', function (Request $request, Response $response, UniqueId $uniqueId) use ($app) {
+        setcookie('XSRF-TOKEN', $uniqueId(), [
             'expires' => 0,
             'path' => '/',
             'samesite' => 'strict',
