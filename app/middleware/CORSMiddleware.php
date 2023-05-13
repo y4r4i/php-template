@@ -9,6 +9,6 @@ return function (Request $request, RequestHandler $handler) {
     $response = $handler->handle($request);
     return $response
         ->withHeader('Access-Control-Allow-Origin', 'http://localhost/app')
-        ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+        ->withHeader('Access-Control-Allow-Headers', '*')
+        ->withHeader('Access-Control-Allow-Methods', '*');
 };
