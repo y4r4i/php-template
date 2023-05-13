@@ -18,7 +18,7 @@ return function (ContainerBuilder $containerBuilder) {
         Config::class => function () {
             return new Config();
         },
-        Medoo::class => function(Config $config) {
+        Medoo::class => function (Config $config) {
             return new Medoo($config()["database"]);
         }
     ]);

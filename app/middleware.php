@@ -9,8 +9,11 @@ use Slim\Middleware\OutputBufferingMiddleware;
 use Slim\Psr7\Factory\StreamFactory;
 
 return function (App $app) {
-    foreach (glob(__DIR__ . '/middleware/*.php') as $path) {
-        $app->add(require $path);
+    $paths = glob(__DIR__ . '/middleware/*.php');
+    if (is_array($paths)) {
+        foreach ($paths as $path) {
+            $app->add(require $path);
+        }
     }
     $app->addBodyParsingMiddleware();
     $outputBufferingMiddleware = new OutputBufferingMiddleware(new StreamFactory(), OutputBufferingMiddleware::PREPEND);

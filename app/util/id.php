@@ -23,7 +23,9 @@ function toBase32($input, $padding = true): string
         '='  // padding char
     );
 
-    if (empty($input)) return "";
+    if (empty($input)) {
+        return "";
+    }
     $input = str_split($input);
     $binaryString = "";
     for ($i = 0; $i < count($input); $i++) {
@@ -37,10 +39,15 @@ function toBase32($input, $padding = true): string
         $i++;
     }
     if ($padding && ($x = strlen($binaryString) % 40) != 0) {
-        if ($x == 8) $base32 .= str_repeat($map[32], 6);
-        else if ($x == 16) $base32 .= str_repeat($map[32], 4);
-        else if ($x == 24) $base32 .= str_repeat($map[32], 3);
-        else if ($x == 32) $base32 .= $map[32];
+        if ($x == 8) {
+            $base32 .= str_repeat($map[32], 6);
+        } elseif ($x == 16) {
+            $base32 .= str_repeat($map[32], 4);
+        } elseif ($x == 24) {
+            $base32 .= str_repeat($map[32], 3);
+        } elseif ($x == 32) {
+            $base32 .= $map[32];
+        }
     }
     return $base32;
 }
