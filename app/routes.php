@@ -13,15 +13,18 @@ return function (App $app) {
     $app->options('/{routes:.+}', function (Request $request, Response $response) {
         return $response;
     });
-    $app->get('/csrf-token', function (Request $request, Response $response) use ($app) {
-        $id = $app->getContainer()->get('id');
-        setcookie('XSRF-TOKEN', $id, [
+    $app->get('/xsrf-cookie', function (Request $request, Response $response) use ($app) {
+        $id = require __DIR__ . '/util/id.php';
+        setcookie('XSRF-TOKEN', $id(), [
             'expires' => 0,
             'path' => '/',
             'samesite' => 'strict',
             'secure' => true,
             'httponly' => true,
         ]);
+        return $response;
+    });
+    $app->options('/{routes:.+}', function (Request $request, Response $response) {
         return $response;
     });
 };
