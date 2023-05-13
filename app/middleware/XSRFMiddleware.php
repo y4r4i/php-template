@@ -5,19 +5,20 @@ declare(strict_types=1);
 use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
-use Slim\Exception\HttpBadRequestException;
+use Slim\Exception\HttpUnauthorizedException;
 
-class PreflightRequestMiddleware
+class XSRFMiddleware
 {
     public function __invoke(Request $request, RequestHandler $handler): ResponseInterface
     {
         $headers = getallheaders();
         if ($request->getMethod() != 'GET') {
-            if (!array_key_exists('x-requested-with', $headers)) {
-                if ($headers['x-requested-with'] != 'XMLHttpRequest') {
-                    throw new HttpBadRequestException($request);
+            if (array_key_exists('x-xsrf-token', $headers) and array_key_exists("XSRF-TOKEN", $_COOKIE)) {
+                if ($headers['x-xsrf-token'] == $_COOKIE["XSRF-TOKEN"]) {
+                    return $handler->handle($request);
                 }
             }
+            throw new HttpUnauthorizedException($request);
         }
         return $handler->handle($request);
     }

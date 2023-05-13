@@ -13,7 +13,8 @@ return function (App $app) {
     $paths = glob(__DIR__ . '/middleware/*.php');
     if (is_array($paths)) {
         foreach ($paths as $path) {
-            $app->add(require $path);
+            require_once $path;
+            $app->add(pathinfo($path, PATHINFO_FILENAME));
         }
     }
     $app->addBodyParsingMiddleware();
