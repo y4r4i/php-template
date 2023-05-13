@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Monolog\Logger;
 use Slim\App;
 use Slim\Middleware\ContentLengthMiddleware;
 use Slim\Middleware\MethodOverrideMiddleware;
@@ -20,8 +21,8 @@ return function (App $app) {
     $app->add($outputBufferingMiddleware);
     $methodOverrideMiddleware = new MethodOverrideMiddleware();
     $app->add($methodOverrideMiddleware);
-    $logger = require __DIR__ . '/util/logger.php';
-    $app->addErrorMiddleware(true, true, true, $logger());
+    $logger = $app->getContainer()->get(Logger::class);
+    $app->addErrorMiddleware(true, true, true, $logger);
     $contentLengthMiddleware = new ContentLengthMiddleware();
     $app->add($contentLengthMiddleware);
 };

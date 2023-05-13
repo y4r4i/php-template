@@ -5,6 +5,8 @@ declare(strict_types=1);
 use DI\Bridge\Slim\Bridge;
 use DI\ContainerBuilder;
 use Medoo\Medoo;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use Psr\Container\ContainerInterface;
 use Slim\App;
 
@@ -17,6 +19,12 @@ return function (ContainerBuilder $containerBuilder) {
         },
         Config::class => function () {
             return new Config();
+        },
+        Logger::class => function () {
+            $logger = new Logger('app');
+            $streamHandler = new StreamHandler(__DIR__ . '/../var/log/error.log', 100);
+            $logger->pushHandler($streamHandler);
+            return $logger;
         },
         Medoo::class => function (Config $config) {
             return new Medoo($config()["database"]);
