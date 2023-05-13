@@ -11,6 +11,7 @@ use Psr\Container\ContainerInterface;
 use Slim\App;
 
 require __DIR__ . "/../components/Config.php";
+require __DIR__ . "/../components/BasePath.php";
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
@@ -19,6 +20,9 @@ return function (ContainerBuilder $containerBuilder) {
         },
         Config::class => function () {
             return new Config();
+        },
+        BasePath::class => function () {
+            return new BasePath();
         },
         Logger::class => function () {
             $logger = new Logger('app');
