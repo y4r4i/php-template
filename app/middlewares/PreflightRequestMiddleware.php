@@ -9,6 +9,8 @@ use Slim\Exception\HttpBadRequestException;
 
 class PreflightRequestMiddleware
 {
+
+
     public function __invoke(Request $request, RequestHandler $handler): ResponseInterface
     {
         $headers = getallheaders();
@@ -19,6 +21,10 @@ class PreflightRequestMiddleware
                 }
             }
         }
+
         return $handler->handle($request);
-    }
-}
+
+    }//end __invoke()
+
+
+}//end class

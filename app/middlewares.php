@@ -10,13 +10,14 @@ use Slim\Middleware\OutputBufferingMiddleware;
 use Slim\Psr7\Factory\StreamFactory;
 
 return function (App $app) {
-    $paths = glob(__DIR__ . '/middlewares/*.php');
+    $paths = glob(__DIR__.'/middlewares/*.php');
     if (is_array($paths)) {
         foreach ($paths as $path) {
-            require_once $path;
+            include_once $path;
             $app->add(pathinfo($path, PATHINFO_FILENAME));
         }
     }
+
     $app->addBodyParsingMiddleware();
     $outputBufferingMiddleware = new OutputBufferingMiddleware(new StreamFactory(), OutputBufferingMiddleware::PREPEND);
     $app->add($outputBufferingMiddleware);
@@ -26,4 +27,5 @@ return function (App $app) {
     $app->addErrorMiddleware(true, true, true, $logger);
     $contentLengthMiddleware = new ContentLengthMiddleware();
     $app->add($contentLengthMiddleware);
+
 };

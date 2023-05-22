@@ -37,4 +37,5 @@ class XSRFCookie
 
     }//end __invoke()
 
+
 }//end class
