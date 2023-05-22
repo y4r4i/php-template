@@ -12,7 +12,6 @@ session_start();
 require __DIR__.'/../../vendor/autoload.php';
 $dependencies = include __DIR__.'/../../app/dependencies.php';
 $middleware   = include __DIR__.'/../../app/middlewares.php';
-$routes       = include __DIR__.'/../../app/routes.php';
 $builder      = new ContainerBuilder();
 $dependencies($builder);
 
@@ -24,7 +23,6 @@ try {
     $basePath  = $container->get(BasePath::class);
     $app->setBasePath($basePath());
     $middleware($app);
-    $routes($app);
     $app->run();
 } catch (NotFoundException | DependencyException | Exception $e) {
     error_log($e->getMessage());
